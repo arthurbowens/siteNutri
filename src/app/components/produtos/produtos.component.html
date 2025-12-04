@@ -1,0 +1,52 @@
+<section id="produtos" class="py-12 md:py-20 bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Cabeçalho da Seção -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Nossos Produtos
+      </h2>
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+        Descubra nossa seleção completa de produtos para sua saúde e bem-estar
+      </p>
+    </div>
+
+    <!-- Filtros de Categoria -->
+    <div class="flex flex-wrap justify-center gap-3 mb-8 md:mb-12">
+      <button
+        (click)="selecionarCategoria('todos')"
+        [class.bg-primary-600]="categoriaSelecionada === 'todos'"
+        [class.text-white]="categoriaSelecionada === 'todos'"
+        [class.bg-gray-100]="categoriaSelecionada !== 'todos'"
+        [class.text-gray-700]="categoriaSelecionada !== 'todos'"
+        class="px-6 py-3 rounded-full font-semibold transition-all hover:scale-105"
+      >
+        Todos
+      </button>
+      <button
+        *ngFor="let categoria of categorias"
+        (click)="selecionarCategoria(categoria.id)"
+        [class.bg-primary-600]="categoriaSelecionada === categoria.id"
+        [class.text-white]="categoriaSelecionada === categoria.id"
+        [class.bg-gray-100]="categoriaSelecionada !== categoria.id"
+        [class.text-gray-700]="categoriaSelecionada !== categoria.id"
+        class="px-6 py-3 rounded-full font-semibold transition-all hover:scale-105 flex items-center gap-2"
+      >
+        <span>{{ categoria.icone }}</span>
+        {{ categoria.nome }}
+      </button>
+    </div>
+
+    <!-- Grid de Produtos -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+      <app-produto-card
+        *ngFor="let produto of produtosFiltrados"
+        [produto]="produto"
+      ></app-produto-card>
+    </div>
+
+    <!-- Mensagem quando não há produtos -->
+    <div *ngIf="produtosFiltrados.length === 0" class="text-center py-12">
+      <p class="text-gray-500 text-lg">Nenhum produto encontrado nesta categoria.</p>
+    </div>
+  </div>
+</section>
